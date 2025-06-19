@@ -1,0 +1,21 @@
+@import "styles/palette.scss";
+
+body {
+  min-height: 100%;
+  background-color: $color-bg;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+a {
+  color: $color-primary;
+}

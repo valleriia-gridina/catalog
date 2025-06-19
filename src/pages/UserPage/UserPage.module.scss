@@ -1,0 +1,15 @@
+.infoRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.label {
+  min-width: 20%;
+  margin-right: 30px;
+  font-weight: 700;
+}

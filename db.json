@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "id": "7bc2",
+      "firstName": "Valeriia",
+      "lastName": "Hridina",
+      "email": "valeriia.gridina@gmail.comaa",
+      "address": "C. del Trinquet de Cavallers, 4, Ciutat Vella, 46003 València, Valencia, Spain",
+      "phone": "642137912",
+      "companyName": "Madrid DA"
+    },
+    {
+      "id": "b866",
+      "firstName": "Valeriia",
+      "lastName": "Hridina",
+      "email": "valeriia.gridina@gmail.comaaa",
+      "address": "Tankopiya St, 17-19, Kharkiv, Kharkivs'ka oblast, Ukraine, 61000",
+      "phone": "642137912",
+      "companyName": "DA"
+    }
+  ],
+  "companies": [
+    {
+      "id": "1",
+      "name": "DA",
+      "address": "Sumska St, 10, Kharkiv, 61000, Ukraine"
+    },
+    {
+      "id": "3",
+      "name": "Orange",
+      "address": "Carrer de la Pau, 3, 46003 València, Spain"
+    },
+    {
+      "id": "2",
+      "name": "DAXX",
+      "address": "Herengracht 124-128, 1015 BT Amsterdam, Netherlands"
+    },
+    {
+      "id": "02a9",
+      "name": "Madrid DA",
+      "address": "Calle Gran Vía, 28, 28013 Madrid, Spain"
+    },
+    {
+      "id": "9a2f",
+      "name": "Apple",
+      "address": "1 Infinite Loop, Cupertino, CA 95014, USA"
+    },
+    {
+      "id": "048a",
+      "name": "test",
+      "address": "Rynek 1, 50-106 Wrocław, Poland"
+    }
+  ]
+}

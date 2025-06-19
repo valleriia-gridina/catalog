@@ -1,0 +1,14 @@
+@import "./palette";
+
+// export for type script
+:export {
+  colorPrimary: $color-primary;
+  colorPrimaryDark: $color-primary-dark;
+  colorSecondary: $color-secondary;
+  colorText: $color-text;
+  colorBg: $color-bg;
+  colorWhite: $color-white;
+  colorSuccess: $color-success;
+  colorError: $color-error;
+  colorWarning: $color-warning;
+}

@@ -1,0 +1,9 @@
+.locationInput {
+  background-color: pink;
+}
+
+:global {
+  .pac-container {
+    z-index: 1301;
+  }
+}
