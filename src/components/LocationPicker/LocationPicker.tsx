@@ -6,7 +6,6 @@ import {
   Autocomplete,
 } from "@react-google-maps/api";
 import TextField from "@mui/material/TextField";
-import { GOOGLE_API_KEY } from "constants/constants";
 
 const centerDefault = { lat: 50.4501, lng: 30.5234 }; // Киев (пример)
 
@@ -21,7 +20,7 @@ type Props = {
 
 const LocationPicker = ({ onSelectLocation }: Props) => {
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: GOOGLE_API_KEY,
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY!,
     libraries,
   });
 

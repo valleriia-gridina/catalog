@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
 import TextField from "@mui/material/TextField";
-import { GOOGLE_API_KEY } from "constants/constants";
 
 import styles from "./LocationInput.module.scss";
 
@@ -15,7 +14,7 @@ const LocationInput = ({
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: GOOGLE_API_KEY,
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY!,
     libraries,
   });
 
