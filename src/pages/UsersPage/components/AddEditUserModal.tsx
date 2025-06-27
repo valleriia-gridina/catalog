@@ -33,13 +33,15 @@ const initialValues = {
 const AddEditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
   const [formData, setFormData] = useState(initialValues);
   const [selectedCompany, setSelectedCompany] = useState<TCompanyOption>(null);
+  const [formErrors, setFormErrors] = useState<{
+    email?: string;
+    companyName?: string;
+  }>({});
 
   const { data: users } = useGetUsersQuery();
 
   const [updateUser] = useUpdateUserMutation();
   const [createUser] = useCreateUserMutation();
-
-  console.log(users);
 
   const { data: companiesList } = useGetCompaniesQuery(undefined, {
     skip: !isOpen,
@@ -78,14 +80,50 @@ const AddEditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+
+    // Clear the error message for the changed field
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: undefined,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const errors: { email?: string; companyName?: string } = {};
+
+    // email validation only when creating a new user
+    if (!user) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!formData.email.trim()) {
+        errors.email = "Email is required";
+      } else if (!emailRegex.test(formData.email)) {
+        errors.email = "Invalid email format";
+      } else if (
+        users?.some(
+          (u) => u.email.toLowerCase() === formData.email.toLowerCase()
+        )
+      ) {
+        errors.email = "This email already exists";
+      }
+
+      if (!formData.companyName.trim()) {
+        errors.companyName = "Company is required";
+      }
+    }
+
+    setFormErrors(errors);
+
+    // if there are any validation errors, do not submit the form
+    if (Object.keys(errors).length > 0) return;
+
     const updatedUser = {
       ...user,
       ...formData,
@@ -139,25 +177,35 @@ const AddEditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
             required
           />
           <CompanySelect
-            companyValue={selectedCompany && user ? selectedCompany : null}
+            companyValue={selectedCompany}
             companyOptions={companyOptions}
             onCompanySelectChange={(newValue) => {
+              setFormErrors((prevErrors) => ({
+                ...prevErrors,
+                companyName: undefined,
+              }));
               setSelectedCompany(newValue);
               setFormData((prev) => ({
                 ...prev,
                 companyName: newValue?.label || "DA",
               }));
             }}
+            error={!!formErrors.companyName}
+            helperText={formErrors.companyName}
           />
           {!user && (
             <TextField
               label="Email"
               name="email"
+              value={formData.email}
               onChange={handleChange}
+              error={!!formErrors.email}
+              helperText={formErrors.email}
               fullWidth
               required
             />
           )}
+
           {!user && (
             <LocationInput
               onSelect={(address, coords) => {
@@ -167,9 +215,9 @@ const AddEditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
               }}
             />
           )}
-          <Button onClick={onCloseModal}>cancel</Button>
+          <Button onClick={onCloseModal}>Cancel</Button>
           <Button type="submit" variant="contained">
-            save
+            Save
           </Button>
         </Box>
       </DialogContent>

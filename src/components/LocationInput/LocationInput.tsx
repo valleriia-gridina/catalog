@@ -47,6 +47,7 @@ const LocationInput = ({
             className: styles.locationInput,
           },
         }}
+        required
       />
     </Autocomplete>
   );

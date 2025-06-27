@@ -34,7 +34,6 @@ function App() {
 
 export default App;
 
-// validation ???
 // add edit button for user
 // add users amount for end point (lazy loading, number)
 // address, add input + map (pin) validation инпут с гугл мап библ + валидация

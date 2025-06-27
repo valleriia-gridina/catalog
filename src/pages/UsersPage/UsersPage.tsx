@@ -72,8 +72,6 @@ const UsersPage = () => {
     setPage(0);
   };
 
-  console.log(users);
-
   return (
     <>
       <PageTitle

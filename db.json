@@ -7,14 +7,50 @@
       "email": "valeriia.gridina@gmail.comaa",
       "address": "C. del Trinquet de Cavallers, 4, Ciutat Vella, 46003 València, Valencia, Spain",
       "phone": "642137912",
-      "companyName": "Madrid DA"
+      "companyName": "Orange"
     },
     {
       "id": "b866",
       "firstName": "Valeriia",
       "lastName": "Hridina",
       "email": "valeriia.gridina@gmail.comaaa",
-      "address": "Tankopiya St, 17-19, Kharkiv, Kharkivs'ka oblast, Ukraine, 61000",
+      "address": "Merefa, Kharkiv Oblast, Ukraine, 62472",
+      "phone": "642137912",
+      "companyName": "DAXX"
+    },
+    {
+      "id": "9d64",
+      "firstName": "Valeriia",
+      "lastName": "Hridina",
+      "email": "valeriia.gridina@gmail.com",
+      "address": "Amsterdam, Netherlands",
+      "phone": "642137912",
+      "companyName": "DA"
+    },
+    {
+      "id": "3a4f",
+      "firstName": "Valeriia",
+      "lastName": "Hridina",
+      "email": "valeriia.gridina@gmail.comw",
+      "address": "Pl. de Sant Llorenç, 4, Ciutat Vella, 46003 València, Valencia, Spain",
+      "phone": "642137912",
+      "companyName": "DA"
+    },
+    {
+      "id": "db79",
+      "firstName": "Valeriia",
+      "lastName": "Hridina",
+      "email": "valeriia.gridina@gmail.comt",
+      "address": "Shatylivska St, 1, Kharkiv, Kharkivs'ka oblast, Ukraine, 61000",
+      "phone": "642137912",
+      "companyName": "Orange"
+    },
+    {
+      "id": "11c5",
+      "firstName": "Valeriia",
+      "lastName": "Hridina",
+      "email": "valeriia.gridina@gmail.comtttt",
+      "address": "",
       "phone": "642137912",
       "companyName": "DA"
     }

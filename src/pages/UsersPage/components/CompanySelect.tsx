@@ -6,12 +6,16 @@ type TProps = {
   companyValue?: TCompanyOption;
   companyOptions?: TCompanyOption[];
   onCompanySelectChange: (value: TCompanyOption) => void;
+  error: boolean;
+  helperText?: string;
 };
 
 const CompanySelect = ({
   companyValue,
   companyOptions,
   onCompanySelectChange,
+  error,
+  helperText,
 }: TProps) => {
   return (
     <Autocomplete
@@ -19,13 +23,18 @@ const CompanySelect = ({
       options={companyOptions || []}
       value={companyValue}
       onChange={(_, newValue) => {
-        console.log(22, newValue, companyOptions);
         onCompanySelectChange(newValue);
       }}
       isOptionEqualToValue={(option, value) => option?.id === value?.id}
       fullWidth
       renderInput={(params) => (
-        <TextField {...params} label="Company" placeholder="Select company" />
+        <TextField
+          {...params}
+          label="Company"
+          placeholder="Select company"
+          error={error}
+          helperText={helperText}
+        />
       )}
     />
   );
