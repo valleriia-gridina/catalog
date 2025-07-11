@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { useGetCompaniesQuery } from "services/companiesApi";
-import AddCompanyModal from "./components/AddCompanyModal";
+
 import PageTitle from "components/PageTitle/PageTitle";
 import Panel from "components/Panel/Panel";
+
+import { useGetCompaniesQuery } from "services/companiesApi";
+import AddCompanyModal from "./partials/AddCompanyModal";
 
 const CompaniesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

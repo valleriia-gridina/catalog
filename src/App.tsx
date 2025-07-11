@@ -6,6 +6,9 @@ import CompaniesPage from "pages/CompaniesPage/CompaniesPage";
 import MainLayout from "layouts/MainLayout";
 import UserPage from "pages/UserPage/UserPage";
 
+// imports => react, library, components, partials, other, styles
+// Boolean const start from is....
+
 const router = createBrowserRouter([
   {
     path: "/",

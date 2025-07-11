@@ -1,7 +1,5 @@
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
+
 import { useDeleteUserMutation } from "services/usersApi";
 
 type TProps = {

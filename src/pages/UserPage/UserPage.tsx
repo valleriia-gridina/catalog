@@ -1,16 +1,19 @@
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useGetUserQuery, useUpdateUserMutation } from "services/usersApi";
+import { LoadScript } from "@react-google-maps/api";
+
+import { Box, Button, TextField, CircularProgress, Alert } from "@mui/material";
+
 import PageTitle from "components/PageTitle/PageTitle";
 import Panel from "components/Panel/Panel";
 import Map from "components/Map/Map";
-import { LoadScript } from "@react-google-maps/api";
 import LocationInput from "components/LocationInput/LocationInput";
 
-import styles from "./UserPage.module.scss";
-import { Box, Button, TextField, CircularProgress, Alert } from "@mui/material";
-import { useState, useEffect } from "react";
 import { useGetCompaniesQuery } from "services/companiesApi";
+import { useGetUserQuery, useUpdateUserMutation } from "services/usersApi";
 import { useGeocodeAddress } from "hooks/useGeocodeAddress";
+
+import styles from "./UserPage.module.scss";
 
 const libraries: ("places" | "geometry")[] = ["places", "geometry"];
 
@@ -28,7 +31,6 @@ const UserPage = () => {
     (company) => company.name.toLowerCase() === user?.companyName.toLowerCase()
   );
 
-  // Инициализация адреса при загрузке пользователя
   useEffect(() => {
     if (user) {
       setAddress(user.address);

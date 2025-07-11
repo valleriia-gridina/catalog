@@ -3,7 +3,7 @@ import { LatLng } from "types/types";
 
 export const useGeocodeAddress = (address?: string) => {
   const [location, setLocation] = useState<LatLng | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export const useGeocodeAddress = (address?: string) => {
     }
 
     const geocode = () => {
-      setLoading(true);
+      setIsLoading(true);
       setError(null);
 
       // Check if Google Maps API is loaded
@@ -24,7 +24,7 @@ export const useGeocodeAddress = (address?: string) => {
         !google.maps.Geocoder
       ) {
         setError("Google Maps API not loaded");
-        setLoading(false);
+        setIsLoading(false);
         return;
       }
 
@@ -43,12 +43,12 @@ export const useGeocodeAddress = (address?: string) => {
             setError(`Geocoding failed: ${status}`);
             setLocation(null);
           }
-          setLoading(false);
+          setIsLoading(false);
         });
       } catch (err) {
         setError("Geocoding error occurred");
         setLocation(null);
-        setLoading(false);
+        setIsLoading(false);
       }
     };
 
@@ -69,5 +69,5 @@ export const useGeocodeAddress = (address?: string) => {
     checkAndGeocode();
   }, [address]);
 
-  return { location, loading, error };
+  return { location, isLoading, error };
 };

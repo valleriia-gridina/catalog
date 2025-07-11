@@ -1,19 +1,23 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
+
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import {
   useCreateUserMutation,
   useGetUsersQuery,
   useUpdateUserMutation,
 } from "services/usersApi";
-import { TCompanyOption, TUser } from "types/types";
+
 import CompanySelect from "./CompanySelect";
+
 import { useGetCompaniesQuery } from "services/companiesApi";
-import LocationInput from "components/LocationInput/LocationInput";
+import { TCompanyOption, TUser } from "types/types";
 
 type TProps = {
   isOpen: boolean;
@@ -30,7 +34,7 @@ const initialValues = {
   companyName: "",
 };
 
-const AddEditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
+const EditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
   const [formData, setFormData] = useState(initialValues);
   const [selectedCompany, setSelectedCompany] = useState<TCompanyOption>(null);
   const [formErrors, setFormErrors] = useState<{
@@ -139,7 +143,7 @@ const AddEditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
 
   return (
     <Dialog open={isOpen} onClose={onCloseModal}>
-      <DialogTitle>{user ? "Edit" : "Add new"} user</DialogTitle>
+      <DialogTitle>Edit user</DialogTitle>
       <DialogContent>
         <Box
           component="form"
@@ -193,28 +197,6 @@ const AddEditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
             error={!!formErrors.companyName}
             helperText={formErrors.companyName}
           />
-          {!user && (
-            <TextField
-              label="Email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              error={!!formErrors.email}
-              helperText={formErrors.email}
-              fullWidth
-              required
-            />
-          )}
-
-          {!user && (
-            <LocationInput
-              onSelect={(address, coords) => {
-                console.log("Address:", address);
-                console.log("Coords:", coords);
-                setFormData({ ...formData, address });
-              }}
-            />
-          )}
           <Button onClick={onCloseModal}>Cancel</Button>
           <Button type="submit" variant="contained">
             Save
@@ -225,4 +207,4 @@ const AddEditUserModal = ({ isOpen, onCloseModal, user }: TProps) => {
   );
 };
 
-export default AddEditUserModal;
+export default EditUserModal;

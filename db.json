@@ -1,31 +1,13 @@
 {
   "users": [
     {
-      "id": "7bc2",
-      "firstName": "Valeriia",
-      "lastName": "Hridina",
-      "email": "valeriia.gridina@gmail.comaa",
-      "address": "C. del Trinquet de Cavallers, 4, Ciutat Vella, 46003 València, Valencia, Spain",
-      "phone": "642137912",
-      "companyName": "Orange"
-    },
-    {
-      "id": "b866",
-      "firstName": "Valeriia",
-      "lastName": "Hridina",
-      "email": "valeriia.gridina@gmail.comaaa",
-      "address": "Merefa, Kharkiv Oblast, Ukraine, 62472",
-      "phone": "642137912",
-      "companyName": "DAXX"
-    },
-    {
       "id": "9d64",
       "firstName": "Valeriia",
       "lastName": "Hridina",
       "email": "valeriia.gridina@gmail.com",
       "address": "Amsterdam, Netherlands",
       "phone": "642137912",
-      "companyName": "DA"
+      "companyName": "DAXX"
     },
     {
       "id": "3a4f",
@@ -46,11 +28,11 @@
       "companyName": "Orange"
     },
     {
-      "id": "11c5",
+      "id": "4109",
       "firstName": "Valeriia",
       "lastName": "Hridina",
-      "email": "valeriia.gridina@gmail.comtttt",
-      "address": "",
+      "email": "valeriia.gridina@gmail.comaaaaa",
+      "address": "Pl. de Sant Llorenç, 4, Ciutat Vella, 46003 València, Valencia, Spain",
       "phone": "642137912",
       "companyName": "DA"
     }

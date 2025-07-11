@@ -1,40 +1,55 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import TablePagination from "@mui/material/TablePagination";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TablePagination,
+} from "@mui/material";
+
 import Button from "components/Button/Button";
-import AddEditUserModal from "./components/AddEditUserModal";
+import PageTitle from "components/PageTitle/PageTitle";
+
+import EditUserModal from "./partials/EditUserModal";
+import DeleteUserModal from "./partials/DeleteUserModal";
+
 import { useGetUsersQuery } from "services/usersApi";
 import { TUser } from "types/types";
-import DeleteUserModal from "./components/DeleteUserModal";
-import { Link } from "react-router-dom";
-import { USERS_PER_PAGE } from "constants/constants";
-import PageTitle from "components/PageTitle/PageTitle";
+import { DEFAULT_USERS_PER_PAGE } from "constants/constants";
 
 // import styles from "./UsersPage.module.scss";
 
 const UsersPage = () => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(USERS_PER_PAGE);
-  const [addEditModalIsOpen, setAddEditModalIsOpen] = useState(false);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_USERS_PER_PAGE);
+  const [isAddEditModalOpen, setIsAddEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<TUser | undefined>(
     undefined
   );
 
   const { data: users, error, isLoading } = useGetUsersQuery();
 
+  const visibleUsers = useMemo(() => {
+    if (rowsPerPage > 0) {
+      const start = page * rowsPerPage;
+      const end = start + rowsPerPage;
+      return users?.slice(start, end);
+    }
+    return users;
+  }, [users, page, rowsPerPage]);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
   if (!users) return <p>No users</p>;
 
-  const handleOpenAddEditModal = (user?: TUser) => {
-    setAddEditModalIsOpen(true);
+  const handleOpenEditModal = (user?: TUser) => {
+    setIsAddEditModalOpen(true);
     if (user) {
       setSelectedUser(user);
     } else {
@@ -42,24 +57,26 @@ const UsersPage = () => {
     }
   };
 
+  const handleCloseAddEditModal = () => {
+    setIsAddEditModalOpen(false);
+  };
+
+  const handleAddUser = () => {
+    console.log("add new user");
+  };
+
   const handleOpenDeleteModal = (user?: TUser) => {
-    setDeleteModalIsOpen(true);
+    setIsDeleteModalOpen(true);
     setSelectedUser(user);
   };
 
-  const handleCloseAddEditModal = () => {
-    setAddEditModalIsOpen(false);
-  };
-
   const handleCloseDeleteModal = () => {
-    setDeleteModalIsOpen(false);
+    setIsDeleteModalOpen(false);
+    setSelectedUser(undefined);
   };
-
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - users.length) : 0;
 
   const handleChangePage = (
-    _: React.MouseEvent<HTMLButtonElement> | null,
+    _: React.MouseEvent<HTMLButtonElement> | null, //???
     newPage: number
   ) => {
     setPage(newPage);
@@ -77,7 +94,7 @@ const UsersPage = () => {
       <PageTitle
         title={"All users"}
         btnText={"Add new user"}
-        onBtnClick={() => handleOpenAddEditModal()}
+        onBtnClick={handleAddUser}
       />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -93,54 +110,64 @@ const UsersPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {(rowsPerPage > 0
-              ? users.slice(
-                  page * rowsPerPage,
-                  page * rowsPerPage + rowsPerPage
-                )
-              : users
-            ).map((user: TUser, index) => (
-              <TableRow key={user.id}>
-                <TableCell component="th" scope="row">
-                  {index + 1}
-                </TableCell>
-                <TableCell>
-                  <Link to={`/users/${user.id}`}>
-                    <strong>{`${user.firstName} ${user.lastName}`}</strong>
-                  </Link>
-                </TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.address}</TableCell>
-                <TableCell>{user.phone}</TableCell>
-                <TableCell>{user.companyName}</TableCell>
-                <TableCell>
+            {users.length ? (
+              (rowsPerPage > 0 ? visibleUsers! : users).map(
+                (user: TUser, index) => {
+                  const userName = `${user.firstName} ${user.lastName}`;
+
+                  return (
+                    <TableRow key={user.id}>
+                      <TableCell component="th" scope="row">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell>
+                        <Link to={`/users/${user.id}`}>
+                          <strong>{userName}</strong>
+                        </Link>
+                      </TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell width={200}>{user.address}</TableCell>
+                      <TableCell>{user.phone}</TableCell>
+                      <TableCell>{user.companyName}</TableCell>
+                      <TableCell>
+                        <Button
+                          onClick={() => {
+                            handleOpenEditModal(user);
+                          }}
+                        >
+                          edit
+                        </Button>
+                        {" / "}
+                        <Button
+                          onClick={() => {
+                            handleOpenDeleteModal(user);
+                          }}
+                        >
+                          delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                }
+              )
+            ) : (
+              <TableRow>
+                <TableCell colSpan={7} align="center">
+                  <p>No users here</p>
                   <Button
                     onClick={() => {
-                      handleOpenAddEditModal(user);
+                      handleAddUser();
                     }}
                   >
-                    edit
-                  </Button>
-                  {" / "}
-                  <Button
-                    onClick={() => {
-                      handleOpenDeleteModal(user);
-                    }}
-                  >
-                    delete
+                    Add a new user
                   </Button>
                 </TableCell>
-              </TableRow>
-            ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 53 * emptyRows }}>
-                <TableCell colSpan={6} />
               </TableRow>
             )}
           </TableBody>
         </Table>
       </TableContainer>
-      {users.length > USERS_PER_PAGE && (
+      {users.length > DEFAULT_USERS_PER_PAGE && (
         <TablePagination
           component="div"
           rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
@@ -150,9 +177,6 @@ const UsersPage = () => {
           page={page}
           slotProps={{
             select: {
-              inputProps: {
-                "aria-label": "rows per page",
-              },
               native: true,
             },
           }}
@@ -160,13 +184,13 @@ const UsersPage = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       )}
-      <AddEditUserModal
-        isOpen={addEditModalIsOpen}
+      <EditUserModal
+        isOpen={isAddEditModalOpen}
         onCloseModal={handleCloseAddEditModal}
         user={selectedUser}
       />
       <DeleteUserModal
-        isOpen={deleteModalIsOpen}
+        isOpen={isDeleteModalOpen}
         onCloseModal={handleCloseDeleteModal}
         selectedUserId={selectedUser?.id}
       />
